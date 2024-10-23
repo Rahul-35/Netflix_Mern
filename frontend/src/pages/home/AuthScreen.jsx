@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import toast from "react-hot-toast";
 
 const AuthScreen = () => {
 	const [email, setEmail] = useState("");
@@ -8,7 +9,10 @@ const AuthScreen = () => {
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
-		navigate("/signup?email=" + email);
+		if(!email)
+			toast.error("Please enter your email to continue");
+		else
+		   navigate("/signup?email=" + email);
 	};
 
 	return (

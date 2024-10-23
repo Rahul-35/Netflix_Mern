@@ -33,7 +33,7 @@ export const useAuthStore = create((set) => ({
 			} else if (error.request) {
 				// The request was made but no response was received (e.g., network error)
 				toast.error("No response from the server. Please check your internet connection.");
-			} else {
+			} else {  
 				// Some other error occurred in setting up the request
 				toast.error("An unexpected error occurred. Please try again.");
 			}
