@@ -61,7 +61,7 @@ export async function getMoviesByCategory(req,res){
     const {category}= req.params;
     try{
         const data= await fetchfromDB(`https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`);
-        return res.status(200).json({sucess:true, category:data.results });
+        return res.status(200).json({sucess:true, content:data.results });
     }
     catch(error){
         if(error.message.includes("404")){

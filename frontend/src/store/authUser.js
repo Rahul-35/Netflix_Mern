@@ -26,7 +26,17 @@ export const useAuthStore = create((set) => ({
 			set({ user: response.data.user, isLoggingIn: false });
 		} catch (error) {
 			set({ isLoggingIn: false, user: null });
-			toast.error(error.response.data.message || "Login failed");
+			if (error.response) {
+				// The server responded with an error
+				const errorMessage = error.response.data.message || "Login failed";
+				toast.error(errorMessage);
+			} else if (error.request) {
+				// The request was made but no response was received (e.g., network error)
+				toast.error("No response from the server. Please check your internet connection.");
+			} else {
+				// Some other error occurred in setting up the request
+				toast.error("An unexpected error occurred. Please try again.");
+			}
 		}
 	},
 	logout: async () => {
