@@ -29,7 +29,7 @@ export async function getShowDetails(req,res){
     const {idx}=req.params;
     try{
         const data=await fetchfromDB(`https://api.themoviedb.org/3/tv/${idx}?language=en-US`);
-        return res.status(200).json({success:true, details:data});
+        return res.status(200).json({success:true, content:data});
     }
     catch(error){
         if(error.message.includes("404")){
