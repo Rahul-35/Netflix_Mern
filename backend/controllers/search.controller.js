@@ -22,7 +22,7 @@ export async function searchPerson(req,res)
             }
             });
 
-        return res.status(200).json({success:true, persons:data.results});
+        return res.status(200).json({success:true, content:data.results});
     }
     catch(error){
         console.log(error.message);
@@ -48,7 +48,7 @@ export async function searchMovie(req,res) {
                 }
             }
             });
-            return res.status(200).json({success:true, movies:response.results});
+            return res.status(200).json({success:true, content:response.results});
     }
     catch(error){
         console.log(error.message);
@@ -74,7 +74,7 @@ export async function searchTV(req,res) {
                 }
             }
             });
-            return res.status(200).json({success:true, movies:response.results});
+            return res.status(200).json({success:true, content:response.results});
     }
     catch(error){
         console.log(error.message);
@@ -84,7 +84,7 @@ export async function searchTV(req,res) {
 
 export async function getSearchHistory(req,res){
     try{
-        return res.status(200).json({success:true, histories:req.user.searchHistory});
+        return res.status(200).json({success:true, content:req.user.searchHistory});
     }
     catch(error){
         console.log(error.message);

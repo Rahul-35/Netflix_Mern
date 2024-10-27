@@ -44,7 +44,9 @@ const scrollRight = () => {
         {formattedCategoryName} {formattedContentType}
     </h2>  
     <div className="flex space-x-4 mt-4 overflow-x-scroll scrollbar-hide" ref={sliderRef}>
-      {content.map((item)=>(
+      {content.map((item)=>{
+        if (content.poster_path === null) return null;
+        return(
         <Link to={`/watch/${item.id}`} className="min-w-[250px] relative group" key={item.id}>
           <div className="rounded-lg overflow-hidden">
               <img src={SMALL_IMG_BASE_URL+item.backdrop_path} alt="Image"
@@ -53,7 +55,7 @@ const scrollRight = () => {
           </div>
           <p className='mt-2 text-center'>{item.title || item.name}</p>
         </Link>
-      ))}
+      )})}
     </div>
     {showArrows && (
 				<>
