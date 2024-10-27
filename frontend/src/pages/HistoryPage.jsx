@@ -77,7 +77,7 @@ const HistoryPage = () => {
 								className='size-16 rounded-full object-cover mr-4'
 							/>
 							<div className='flex flex-col'>
-								<span className='text-white text-lg'>{entry.title || entry.name}</span>
+								<span className='text-white text-lg'>{entry.title}</span>
 								<span className='text-gray-400 text-sm'>{formatDate(entry.createdAt)}</span>
 							</div>
 							<span

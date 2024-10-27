@@ -68,7 +68,7 @@ export async function searchTV(req,res) {
                 searchHistory:{
                     id: response.results[0].id,
                     image:response.results[0].poster_path,
-                    title:response.results[0].title,
+                    title:response.results[0].name,
                     searchType:"TV",
                     createdAt:new Date(),
                 }
