@@ -4,10 +4,12 @@ import Navbar from "../components/Navbar";
 import { SMALL_IMG_BASE_URL } from "../utils/constants";
 import { Trash } from "lucide-react";
 import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
 const HistoryPage = () => {
 
     const [searchHistory,setSearchHistory]=useState([]);
+	const navigate = useNavigate();
     useEffect(() => {
 		const getSearchHistory = async () => {
 			try {
@@ -61,6 +63,12 @@ const HistoryPage = () => {
 		);
 	}
 
+	function onCheck(item){
+		if(item.searchType==="Movie" || item.searchType==="TV"){
+			navigate(`/watch/${item.id}`);
+		}
+	}
+
 
   return (
     <div className='bg-black text-white min-h-screen'>
@@ -77,7 +85,7 @@ const HistoryPage = () => {
 								className='size-16 rounded-full object-cover mr-4'
 							/>
 							<div className='flex flex-col'>
-								<span className='text-white text-lg'>{entry.title}</span>
+								<span className='text-white text-lg hover:underline cursor-pointer' onClick={() => onCheck(entry)}>{entry.title}</span>
 								<span className='text-gray-400 text-sm'>{formatDate(entry.createdAt)}</span>
 							</div>
 							<span
