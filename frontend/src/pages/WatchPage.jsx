@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useContentStore } from "../store/content.js";
 import axios from "axios";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import Navbar from "../components/Navbar.jsx";
 import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants.js";
@@ -17,8 +17,21 @@ export const WatchPage = () => {
   const [details,setDetails]=useState({});
   const [similar,setSimilar]=useState([]);
   const{contentType}=useContentStore();
+  const [myFav,setMyFav]=useState([]);
 
   const sliderRef = useRef(null);
+
+	const postMyFav = async (entry) => {
+	try { 
+			const res = await axios.post(`/api/favourite/${entry._id}`);
+			setMyFav(res.data.content);
+		} catch (error) {
+			console.log(error.message);
+			setMyFav([]);
+		}
+	};
+
+
   useEffect(()=>{
     const getTrailers = async () => {
       try{
@@ -169,6 +182,7 @@ export const WatchPage = () => {
 						</p>
 						<p className='mt-4 text-lg'>{details?.overview}</p>
 					</div>
+					<Heart className="size-52 text-red-600" onClick={postMyFav}/>
 					<img
 						src={ORIGINAL_IMG_BASE_URL + details?.poster_path}
 						alt='Poster image'

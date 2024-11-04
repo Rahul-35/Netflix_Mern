@@ -49,7 +49,7 @@ const scrollRight = () => {
         return(
         <Link to={`/watch/${item.id}`} className="min-w-[250px] relative group" key={item.id}>
           <div className="rounded-lg overflow-hidden">
-              <img src={SMALL_IMG_BASE_URL+item.backdrop_path} alt="Image"
+              <img style={{width:250.5,height:140.5}} src={SMALL_IMG_BASE_URL+(item.backdrop_path==null? item.poster_path: item.backdrop_path)} alt="Image"
               className="transition-transform duration-300 ease-in-out group-hover:scale-125"
               />
           </div>

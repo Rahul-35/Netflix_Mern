@@ -23,6 +23,10 @@ const userSchema=mongoose.Schema({
         type:Array,
         default:[]
     },
+    myFav:{
+        type:Array,
+        default:[]
+    }
 })
 
 const User=mongoose.model("Users",userSchema);
