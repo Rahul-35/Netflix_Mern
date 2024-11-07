@@ -19,7 +19,7 @@ export async function addToFavourites(req, res) {
             }
             });
     
-        return res.status(200).json({ success: true, content: data.results });
+        return res.status(200).json({ success: true, content: data });
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ success: false, message: 'Internal server error' });
@@ -45,7 +45,7 @@ export async function addTvtoFavourites(req, res) {
             }
             });
     
-        return res.status(200).json({ success: true, content: data.results });
+        return res.status(200).json({ success: true, content: data });
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ success: false, message: 'Internal server error' });

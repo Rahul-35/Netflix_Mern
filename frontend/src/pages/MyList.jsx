@@ -4,6 +4,7 @@ import axios from "axios";
 import { SMALL_IMG_BASE_URL } from "../utils/constants.js";
 import toast from "react-hot-toast";
 import { Trash } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const MyList = () => {
 
@@ -21,6 +22,21 @@ const MyList = () => {
 		};
 		getMyFav();
 	}, []);
+
+	function formatDate(dateString) {
+        // Create a Date object from the input date string
+        const date = new Date(dateString);
+    
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+        // Extract the month, day, and year from the Date object
+        const month = monthNames[date.getUTCMonth()];
+        const day = date.getUTCDate();
+        const year = date.getUTCFullYear();
+    
+        // Return the formatted date string
+        return `${month} ${day}, ${year}`;
+    }
 
 if (myFav?.length === 0) {
   return (
@@ -55,16 +71,21 @@ const handleDelete = async (entry) => {
 				<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3  gap-4'>
 					{myFav?.map((entry) => (
 						<div key={entry.id} className='bg-gray-800 p-4 rounded flex items-start'>
+							<Link to={"/watch/" + entry.id}>
 							<img
 								src={SMALL_IMG_BASE_URL + entry.image}
 								alt='Favourite image'
 								className='size-16 rounded-full object-cover mr-4'
 							/>
-							<span>{entry.title}</span>
+							<div>
+								<h2>{entry.title}</h2>
+								<span>{formatDate(entry.createdAt)}</span>
+							</div>
+							</Link>
 							<Trash
-								className='size-5 ml-4 cursor-pointer hover:fill-red-600 hover:text-red-600'
-								onClick={() => handleDelete(entry)}
-							/>
+									className='size-5 ml-4 cursor-pointer hover:fill-red-600 hover:text-red-600'
+									onClick={() => handleDelete(entry)}
+								/>
 						</div>
 					))}
 				</div>
