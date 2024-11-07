@@ -1,10 +1,12 @@
 import express from "express";
-import { addToFavourites, getFavourites } from "../controllers/fav.controller.js";
+import { addToFavourites, addTvtoFavourites, deleteFav, getFavourites } from "../controllers/fav.controller.js";
 
 
 const router=express.Router();
 
-router.get("/favourite",getFavourites);
-router.post("/favourite/:account_id",addToFavourites);
+router.get("/getfav",getFavourites);
+router.get("/setfav/:id",addToFavourites);
+router.get("/settv/:id",addTvtoFavourites);
+router.delete("/delfav/:id",deleteFav);
 
 export default router;

@@ -21,7 +21,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: 'http://localhost:5173/' }));
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 const PORT=ENV_VARS.PORT;
 

@@ -8,6 +8,7 @@ import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants.js";
 import { formatReleaseDate } from "../utils/dateFunction.js";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton.jsx";
+import toast from "react-hot-toast";
 
 export const WatchPage = () => {
   const {id}=useParams();
@@ -17,17 +18,29 @@ export const WatchPage = () => {
   const [details,setDetails]=useState({});
   const [similar,setSimilar]=useState([]);
   const{contentType}=useContentStore();
-  const [myFav,setMyFav]=useState([]);
+  //const [myFav,setMyFav]=useState([]);
 
   const sliderRef = useRef(null);
 
-	const postMyFav = async (entry) => {
-	try { 
-			const res = await axios.post(`/api/favourite/${entry._id}`);
-			setMyFav(res.data.content);
+	const postMyFav = async (id) => {
+		try { 
+			await axios.get(`/api/favourite/setfav/${id}`);
+			toast.success("Added to Favourites");
 		} catch (error) {
 			console.log(error.message);
-			setMyFav([]);
+			toast.error("Unable to add to Favourites");
+			
+		}
+	};
+
+	const postMyTV = async (id) => {
+		try { 
+			await axios.get(`/api/favourite/settv/${id}`);
+			toast.success("Added to Favourites");
+		} catch (error) {
+			console.log(error.message);
+			toast.error("Unable to add to Favourites");
+			
 		}
 	};
 
@@ -146,7 +159,7 @@ export const WatchPage = () => {
 					</div>
 				)}
 
-				<div className='aspect-video mb-8 p-2 sm:px-10 md:px-32'>
+				<div className='aspect-video p-2 sm:px-10 md:px-32'>
 					{trailers.length > 0 && (
 						<ReactPlayer
 							controls={true}
@@ -181,14 +194,15 @@ export const WatchPage = () => {
 							)}{" "}
 						</p>
 						<p className='mt-4 text-lg'>{details?.overview}</p>
+						<Heart className="size-12 mt-8 text-red-600 fill-red-600" onClick={()=>{details?.media_type=="tv"?postMyTV(details.id):postMyFav(details.id)}}/>
 					</div>
-					<Heart className="size-52 text-red-600" onClick={postMyFav}/>
 					<img
 						src={ORIGINAL_IMG_BASE_URL + details?.poster_path}
 						alt='Poster image'
 						className='max-h-[600px] rounded-md'
 					/>
 				</div>
+
 
 				{similar.length > 0 && (
 					<div className='mt-12 max-w-5xl mx-auto relative'>

@@ -2,27 +2,48 @@ import { fetchfromDB } from "../services/tmdb.services.js";
 import User from "../models/user.js";
 
 export async function addToFavourites(req, res) {
+    //console.log("id: ",id);
     try { 
-        const account_id = req.user._id;
-        const data = await fetchfromDB(`https://api.themoviedb.org/3/account/${account_id}/favorite`);
-        
-        // Check if results exist and handle multiple results if necessary
-        if (!data.results || data.results.length === 0) {
-            return res.status(404).send(null);
-        }
-        
-        // If results is an array, process each item
-        const favorites = data.results.map(item => ({
-            id: item.id,
-            image: item.profile_path || item.poster_path,
-            title: item.name || item.title,
-            createdAt: new Date(),
-        }));
-        
-        // Update user's favorites list in the database
-        await User.findByIdAndUpdate(req.user._id, {
-            $push: { myFav: { $each: favorites } }
-        });
+        const {id} = req.params;
+        const data= await fetchfromDB(`https://api.themoviedb.org/3/movie/${id}?language=en-US`);
+        console.log(data);
+
+        await User.findByIdAndUpdate(req.user._id,{
+            $push:{
+                myFav:{
+                    id: data.id,
+                    image:data.poster_path,
+                    title:data.title || data.results.name,
+                    createdAt:new Date(),
+                }
+            }
+            });
+    
+        return res.status(200).json({ success: true, content: data.results });
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ success: false, message: 'Internal server error' });
+    }        
+}
+
+export async function addTvtoFavourites(req, res) {
+    //console.log("id: ",id);
+    //https://api.themoviedb.org/3/tv/series_id?language=en-US
+    try { 
+        const {id} = req.params;
+        const data= await fetchfromDB(`https://api.themoviedb.org/3/tv/${id}?language=en-US`);
+        console.log(data.id);
+
+        await User.findByIdAndUpdate(req.user._id,{
+            $push:{
+                myFav:{
+                    id: data.id,
+                    image:data.poster_path,
+                    title:data.name,
+                    createdAt:new Date(),
+                }
+            }
+            });
     
         return res.status(200).json({ success: true, content: data.results });
     } catch (error) {
@@ -32,11 +53,26 @@ export async function addToFavourites(req, res) {
 }
 
 
-
 export async function getFavourites(req,res){
     try{
-        const data= await fetchfromDB(`https://api.themoviedb.org/3/account/${account_id}/favorite/movies`)
         return res.status(200).json({success:true, content:req.user.myFav});
+    }
+    catch(error){
+        console.log(error.message);
+        return res.status(500).json({success:false, message:'Internal server error'});
+    }
+}
+
+export async function deleteFav(req,res) {
+    try{
+        var {id}=req.params;
+        id=parseInt(id);
+        await User.findByIdAndUpdate(req.user._id,{
+            $pull:{
+                myFav:{id:id},
+            }
+        });
+        return res.status(200).json({success:true, message:'The item is deleted from Favourites'});
     }
     catch(error){
         console.log(error.message);
