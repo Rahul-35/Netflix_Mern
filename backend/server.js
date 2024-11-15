@@ -8,6 +8,7 @@ import movieRoute from "./routes/movie.route.js";
 import tvRoute from "./routes/tv.route.js";
 import searchRoute from "./routes/search.route.js";
 import favRoute from "./routes/favourite.route.js";
+import personRoute from "./routes/person.route.js";
 
 import dotenv from 'dotenv';
 import { ENV_VARS } from "./config/envVars.js";
@@ -51,3 +52,4 @@ app.use("/api/movie",protectRoute,movieRoute);
 app.use("/api/tv",protectRoute,tvRoute);
 app.use("/api/search",protectRoute,searchRoute);
 app.use("/api/favourite",protectRoute,favRoute);
+app.use("/api/actor",protectRoute,personRoute);

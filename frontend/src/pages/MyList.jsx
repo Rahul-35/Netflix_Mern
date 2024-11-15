@@ -77,13 +77,13 @@ const handleDelete = async (entry) => {
 								alt='Favourite image'
 								className='size-16 rounded-full object-cover mr-4'
 							/>
-							<div>
-								<h2>{entry.title}</h2>
+							<div className='flex flex-col'>
+								<h2 className='text-white text-lg hover:underline cursor-pointer'>{entry.title}</h2>
 								<span>{formatDate(entry.createdAt)}</span>
 							</div>
 							</Link>
 							<Trash
-									className='size-5 ml-4 cursor-pointer hover:fill-red-600 hover:text-red-600'
+									className='size-5 ml-4 right-6 cursor-pointer hover:fill-red-600 hover:text-red-600'
 									onClick={() => handleDelete(entry)}
 								/>
 						</div>

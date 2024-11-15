@@ -12,6 +12,7 @@ import SearchPage from "./pages/SearchPage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import NotFoundPage from "./pages/404.jsx";
 import MyList from "./pages/MyList.jsx";
+import { Persons } from "./pages/Persons.jsx";
 
 function App() {
 const {user, isCheckingAuth, authCheck}=useAuthStore();
@@ -61,6 +62,10 @@ if (isCheckingAuth) {
       <Route
       path="/favourite"
       element={user ? <MyList/>: <Navigate to="/login"/>}
+      />
+      <Route
+      path="/persons"
+      element={user ? <Persons/>: <Navigate to="/login"/>}
       />
    </Routes>
    <Footer/>

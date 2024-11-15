@@ -24,8 +24,9 @@ export const WatchPage = () => {
 
 	const postMyFav = async (id) => {
 		try { 
-			await axios.get(`/api/favourite/setfav/${id}`);
-			toast.success("Added to Favourites");
+			const res= await axios.get(`/api/favourite/setfav/${id}`);
+			if(res)
+				toast.success("Added to Favourites");
 		} catch (error) {
 			console.log(error.message);
 			toast.error("Unable to add to Favourites");
