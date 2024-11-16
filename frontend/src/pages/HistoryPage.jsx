@@ -67,6 +67,10 @@ const HistoryPage = () => {
 		if(item.searchType==="Movie" || item.searchType==="TV"){
 			navigate(`/watch/${item.id}`);
 		}
+		else
+		{
+			navigate(`/persons/${item.id}`);
+		}
 	}
 
 

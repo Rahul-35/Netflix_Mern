@@ -64,7 +64,7 @@ if (isCheckingAuth) {
       element={user ? <MyList/>: <Navigate to="/login"/>}
       />
       <Route
-      path="/persons"
+      path="/persons/:id"
       element={user ? <Persons/>: <Navigate to="/login"/>}
       />
    </Routes>

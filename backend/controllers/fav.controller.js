@@ -36,11 +36,6 @@ export async function addTvtoFavourites(req, res) {
         const {id} = req.params;
         const data= await fetchfromDB(`https://api.themoviedb.org/3/tv/${id}?language=en-US`);
 
-        if(User.findOne(req.user._id,{ myFav:{$elemMatch:{id:id}}})){
-            res.status(500).json({success:false, message:'Already added to favourites'});
-        }
-        else{
-
         await User.findByIdAndUpdate(req.user._id,{
             $push:{
                 myFav:{
@@ -52,7 +47,7 @@ export async function addTvtoFavourites(req, res) {
             }
             });
         return res.status(200).json({ success: true, content: data });
-        }
+        
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ success: false, message: 'Internal server error' });

@@ -83,7 +83,7 @@ const SearchPage = () => {
 											alt={result.name}
 											className='max-h-96 rounded mx-auto'
 										/>
-										<h2 className='mt-2 text-xl font-bold'>{result.name}</h2>
+										<Link to={"/persons/" + result.id}><h2 className='mt-2 text-xl font-bold'>{result.name}</h2></Link>
 									</div>
 								) : (
 									<Link
