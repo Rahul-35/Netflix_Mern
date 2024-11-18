@@ -35,7 +35,7 @@ const HistoryPage = () => {
         const year = date.getUTCFullYear();
     
         // Return the formatted date string
-        return `${month} ${day}, ${year}`;
+        return `${day} ${month}, ${year}`;
     }
 
     const handleDelete = async (entry) => {

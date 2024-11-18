@@ -22,7 +22,7 @@ export const WatchPage = () => {
 
   const sliderRef = useRef(null);
 
-	const postMyFav = async (id) => {
+	const postMyFav = async () => {
 		try { 
 			const res= await axios.get(`/api/favourite/setfav/${id}`);
 			if(res)
@@ -34,7 +34,7 @@ export const WatchPage = () => {
 		}
 	};
 
-	const postMyTV = async (id) => {
+	const postMyTV = async () => {
 		try { 
 			await axios.get(`/api/favourite/settv/${id}`);
 			toast.success("Added to Favourites");
@@ -195,7 +195,7 @@ export const WatchPage = () => {
 							)}{" "}
 						</p>
 						<p className='mt-4 text-lg'>{details?.overview}</p>
-						<Heart className="size-12 mt-8 text-red-600 fill-red-600" onClick={()=>{contentType=="tv"?postMyTV(details.id):postMyFav(details.id)}}/>
+						<Heart className="size-12 mt-8 text-red-600 fill-red-600" onClick={()=>{contentType=="tv"?postMyTV():postMyFav()}}/>
 					</div>
 					<img
 						src={ORIGINAL_IMG_BASE_URL + details?.poster_path}
