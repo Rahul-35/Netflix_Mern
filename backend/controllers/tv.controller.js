@@ -67,3 +67,17 @@ export async function getShowsByCategory(req,res) {
     }
     
 }
+
+export async function getTvCredits(req,res) {
+    try{
+        const {id}=req.params;
+        const data=await fetchfromDB(`https://api.themoviedb.org/3/tv/${id}/credits?language=en-US`);
+        return res.status(200).json({success:true, content:data});
+    }
+    catch(error){
+        if(error.message.includes("404")){
+            return res.status(404).json({success:false, message:'Credits not found'});
+         }
+        return res.status(500).json({success:false, message:'Internal server error'});
+    }
+}

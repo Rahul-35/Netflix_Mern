@@ -18,9 +18,10 @@ export const WatchPage = () => {
   const [details,setDetails]=useState({});
   const [similar,setSimilar]=useState([]);
   const{contentType}=useContentStore();
-  //const [myFav,setMyFav]=useState([]);
+  const [credit,setCredit]=useState([]);
 
   const sliderRef = useRef(null);
+  const sliderRef2 = useRef(null);
 
 	const postMyFav = async () => {
 		try { 
@@ -93,6 +94,21 @@ export const WatchPage = () => {
     getContent();
   },[contentType,id]);
 
+
+  useEffect(()=>{
+    const getCredit=async() =>{
+      try{
+          const res=await axios.get(`/api/${contentType}/credits/${id}`);
+          setCredit(res.data.content.cast);
+      }
+      catch (error) {
+		console.log(error.message);
+		setCredit([]);
+	}
+    };
+    getCredit();
+  },[contentType,id]);
+
   if(loading){
 	return(
 	<div className="min-h-screen bg-black p-10">
@@ -120,11 +136,19 @@ export const WatchPage = () => {
 		if (currentTrailerIdx > 0) setCurrentTrailerIdx(currentTrailerIdx - 1);
 	};
 
-	const scrollLeft = () => {
-		if (sliderRef.current) sliderRef.current.scrollBy({ left: -sliderRef.current.offsetWidth, behavior: "smooth" });
+	// const scrollLeft = () => {
+	// 	if (sliderRef.current) sliderRef.current.scrollBy({ left: -sliderRef.current.offsetWidth, behavior: "smooth" });
+	// };
+	// const scrollRight = () => {
+	// 	if (sliderRef.current) sliderRef.current.scrollBy({ left: sliderRef.current.offsetWidth, behavior: "smooth" });
+	// };
+
+	const scrollLeft = (ref) => {
+		if (ref.current) ref.current.scrollBy({ left: -ref.current.offsetWidth, behavior: "smooth" });
 	};
-	const scrollRight = () => {
-		if (sliderRef.current) sliderRef.current.scrollBy({ left: sliderRef.current.offsetWidth, behavior: "smooth" });
+
+	const scrollRight = (ref) => {
+		if (ref.current) ref.current.scrollBy({ left: ref.current.offsetWidth, behavior: "smooth" });
 	};
 
   return (
@@ -203,10 +227,41 @@ export const WatchPage = () => {
 						className='max-h-[600px] rounded-md'
 					/>
 				</div>
+				<div className='mt-32 max-w-5xl mx-auto relative mb-24'>
+				<h3 className='text-3xl font-bold mb-4'>Casts</h3>
+				<div className='flex overflow-x-scroll scrollbar-hide gap-4 pb-4 group' ref={sliderRef2}>
+							{credit.map((content) => {
+								if (content.profile_path === null) return null;
+								return (
+									<Link key={content.id} to={`/persons/${content.id}`} className='w-52 flex-none'>
+										<img
+											src={SMALL_IMG_BASE_URL + content.profile_path}
+											alt='Profile path'
+											className='w-full h-auto rounded-md'
+										/>
+										<h4 className='mt-2 text-lg font-semibold'>{content.name}</h4>
+										<h4 className='mt-2 text-lg font-semibold'>({content?.character})</h4>
+									</Link>
+								);
+							})}
 
+							<ChevronRight
+								className='absolute top-1/2 -translate-y-1/2 right-2 w-8 h-8
+										opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer
+										 bg-red-600 text-white rounded-full'
+								onClick={()=>scrollRight(sliderRef2)}
+							/>
+							<ChevronLeft
+								className='absolute top-1/2 -translate-y-1/2 left-2 w-8 h-8 opacity-0 
+								group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-red-600 
+								text-white rounded-full'
+								onClick={()=>scrollLeft(sliderRef2)}
+							/>
+						</div>	
+				</div>
 
 				{similar.length > 0 && (
-					<div className='mt-12 max-w-5xl mx-auto relative'>
+					<div className='mt-24 max-w-5xl mx-auto relative'>
 						<h3 className='text-3xl font-bold mb-4'>Similar Movies/Tv Show</h3>
 
 						<div className='flex overflow-x-scroll scrollbar-hide gap-4 pb-4 group' ref={sliderRef}>
@@ -228,13 +283,13 @@ export const WatchPage = () => {
 								className='absolute top-1/2 -translate-y-1/2 right-2 w-8 h-8
 										opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer
 										 bg-red-600 text-white rounded-full'
-								onClick={scrollRight}
+								onClick={()=>scrollRight(sliderRef)}
 							/>
 							<ChevronLeft
 								className='absolute top-1/2 -translate-y-1/2 left-2 w-8 h-8 opacity-0 
 								group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-red-600 
 								text-white rounded-full'
-								onClick={scrollLeft}
+								onClick={()=>scrollLeft(sliderRef)}
 							/>
 						</div>
 					</div>

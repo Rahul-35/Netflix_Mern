@@ -102,9 +102,10 @@ export const Persons = () => {
 										<img
 											src={SMALL_IMG_BASE_URL + content.poster_path}
 											alt='Poster path'
-											className='w-full h-auto rounded-md'
+											className='transition-transform duration-300 ease-in-out group-hover:scale-125'
 										/>
 										<h4 className='mt-2 text-lg font-semibold'>{content.title || content.name}</h4>
+                    
 									</Link>
 								);
 							})}
