@@ -219,7 +219,7 @@ export const WatchPage = () => {
 							)}{" "}
 						</p>
 						<p className='mt-4 text-lg'>{details?.overview}</p>
-						<Heart className="size-12 mt-8 text-red-600 fill-red-600" onClick={()=>{contentType=="tv"?postMyTV():postMyFav()}}/>
+						<Heart className="size-12 mt-8 text-red-600 fill-red-600" onClick={() => { (contentType==="tv")? postMyTV() : postMyFav()}}/>
 					</div>
 					<img
 						src={ORIGINAL_IMG_BASE_URL + details?.poster_path}

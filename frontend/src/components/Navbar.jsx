@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState } from "react";
-import {Search,  LogOut, Menu} from "lucide-react";
+import {Search,  LogOut, Menu, Bell} from "lucide-react";
 import { useAuthStore } from "../store/authUser.js";
 import { useContentStore } from "../store/content.js";
 
@@ -18,7 +18,7 @@ const Navbar = () => {
                 <img src="/netflix-logo.png" className="w-32 sm:w-40"/>
             </Link>
             {/* Desktop navbar */}
-            <div className="hidden sm:flex gap-2 items-center">
+            <div className="hidden sm:flex gap-7 items-center">
             		<Link to='/' className='hover:underline hover:text-red-500' onClick={()=>setContentType("movie")}>
 						Movies
 					</Link>
@@ -29,15 +29,16 @@ const Navbar = () => {
 						Search History
 					</Link>
 					<Link to='/favourite' className='hover:underline hover:text-red-500'>
-						My Favorites
+						My List
 					</Link>
 				</div>
             </div>
 
-            <div className='flex gap-2 items-center z-50'>
+            <div className='flex gap-6 items-center z-50'>
 				<Link to={"/search"}>
 					<Search className='size-6 cursor-pointer' />
 				</Link>
+				<Bell className='size-6 cursor-pointer'/>
 				<img src={user.image} alt='Avatar' className='h-8 rounded cursor-pointer' />
 				<LogOut className='size-6 cursor-pointer' onClick={logout} />
 				<div className='sm:hidden'>
@@ -57,7 +58,7 @@ const Navbar = () => {
 						Search History
 					</Link>
 					<Link to={"/favourite"} className='block hover:underline p-2' onClick={toggleMobileMenu}>
-						My Favourites
+						My List
 					</Link>
 				</div>
 			)}
