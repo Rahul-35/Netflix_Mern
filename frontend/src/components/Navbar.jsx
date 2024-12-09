@@ -19,16 +19,16 @@ const Navbar = () => {
             </Link>
             {/* Desktop navbar */}
             <div className="hidden sm:flex gap-7 items-center">
-            		<Link to='/' className='hover:underline hover:text-red-500' onClick={()=>setContentType("movie")}>
+            		<Link to='/' className='hover:underline hover:text-red-500 focus:text-red-600 focus:font-bold focus:text-lg' onClick={()=>setContentType("movie")}>
 						Movies
 					</Link>
-					<Link to='/' className='hover:underline hover:text-red-500'onClick={()=>setContentType("tv")}>
+					<Link to='/' className='hover:underline hover:text-red-500 focus:text-red-600 focus:font-bold focus:text-lg'onClick={()=>setContentType("tv")}>
 						TV Shows
 					</Link>
-					<Link to='/history' className='hover:underline hover:text-red-500'>
+					<Link to='/history' className='hover:underline hover:text-red-500 focus:text-red-600 focus:font-bold focus:text-lg'>
 						Search History
 					</Link>
-					<Link to='/favourite' className='hover:underline hover:text-red-500'>
+					<Link to='/favourite' className='hover:underline hover:text-red-500 focus:text-red-600 focus:font-bold focus:text-lg'>
 						My List
 					</Link>
 				</div>

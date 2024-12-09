@@ -213,10 +213,10 @@ export const WatchPage = () => {
 
 						<p className='mt-2 text-lg'>
             				{formatReleaseDate(details?.release_date || details?.first_air_date)} |{" "}{details?.adult ? (
-								<span className='text-red-600'>18+</span>
+								<span className='text-red-600 font-bold'>18+</span>
 							) : (
-								<span className='text-green-600'>PG-13</span>
-							)}{" "}
+								<span className='text-green-600 font-bold'>PG-13</span>
+							)}{" "} | {" "}<span className="text-blue-400 font-bold">{details?.vote_average.toFixed(1)}</span>
 						</p>
 						<p className='mt-4 text-lg'>{details?.overview}</p>
 						<Heart className="size-12 mt-8 text-red-600 fill-red-600" onClick={() => { (contentType==="tv")? postMyTV() : postMyFav()}}/>

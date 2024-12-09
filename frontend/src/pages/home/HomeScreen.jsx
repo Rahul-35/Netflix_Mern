@@ -22,6 +22,8 @@ function HomeScreen() {
 			</div>
 		);
 
+    //白夜破晓
+
   return (
     <>
       <div className="relative h-screen text-white">
@@ -29,7 +31,7 @@ function HomeScreen() {
           {imageLoading && (
 					<div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center shimmer -z-10' />
 				)}
-          <img src={ORIGINAL_IMG_BASE_URL+trendingContent?.backdrop_path} alt="Hero image"
+          <img src={ORIGINAL_IMG_BASE_URL+(trendingContent?.backdrop_path||trendingContent?.poster_path)} alt="Hero image"
           className="absolute top-0 left-0 w-full h-full object-cover -z-50"
           onLoad={()=>{setImageLoading(false)}}
           />
@@ -40,8 +42,8 @@ function HomeScreen() {
         <div className="max-w-2xl">
           <h1 className="mt-4 text-6xl font-extrabold text-balance">{trendingContent?.title||trendingContent?.name}</h1>
           <p className="mt-2 text-lg">{trendingContent?.first_air_date?.split("-")[0] || trendingContent?.release_date?.split("-")[0]}{" "} |
-           {" "}{trendingContent?.adult? "18+" :"PG-13"}</p>
-          <p className="mt-4 text-lg">{trendingContent?.overview}</p>
+           {" "}{trendingContent?.adult? "18+" :"PG-13"} | {" "}{trendingContent?.vote_average.toFixed(1)}</p>
+          <p className="mt-4 text-lg">{trendingContent?.overview.length>120? trendingContent.overview.slice(0,120)+" ......":trendingContent?.overview}</p>
         </div>
         <div className='flex mt-8'>
 						<Link
